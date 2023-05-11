@@ -1,0 +1,29 @@
+:root{
+    font-size: 13px;
+}
+
+.picProfileFreme{
+    width: 5rem;
+}
+
+.profilePic{
+    width: 4rem;
+}
+
+p,
+h6{
+    margin: 0;
+}
+
+input{
+    border: none;
+}
+
+
+.h-100{
+    min-height: 100%;
+}
+
+.messageContainer{
+    background-image: url(../img/mine.jpg);
+}
