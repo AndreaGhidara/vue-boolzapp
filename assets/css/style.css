@@ -27,3 +27,19 @@ input{
 .messageContainer{
     background-image: url(../img/mine.jpg);
 }
+
+.message{
+    padding: 0.3rem;
+    margin: 0.2rem;
+    border-radius: 5px;
+}
+
+.sent{
+    float: right;
+    background-color: green;
+}
+
+.received{
+    float: left;
+    background-color: green;
+}

@@ -64,7 +64,7 @@ createApp({
                             status: 'sent'
                         },
                         {
-                            date: '28/03/2020 16:15:22',
+                            date: '28/03/2020 16:16:22',
                             message: 'Ah scusa!',
                             status: 'received'
                         }
@@ -165,13 +165,40 @@ createApp({
                         }
                     ],
                 }
-            ]
+            ],
+            utenteAttivo: {
+                name: 'luca',
+                avatar: '/img/avatar_5.jpg',
+                visible: true,
+                messages: [],
+            },
+            counter: 0,
+            searchQuery: null,
+
         }
     },
     methods: {
-        lastMessage(i) {
-            console.log(this.contacts[i].messages[this.messages.length - 1].message);
-            return this.contacts[i].messages[this.messages.length - 1].message;
+        getHours(time) {
+            let hours = time
+            timeLastMex = hours.slice(11, 16)
+            return timeLastMex
+        },
+        getChatId(i) {
+            this.counter = i;
+        },
+        getLastMessageTime(i) {
+            let hours = this.contacts[i].messages[this.contacts[i].messages.length - 1].date
+            hours = hours.slice(11, 16)
+            return hours
+        },
+        resultQuery() {
+            if (this.searchQuery) {
+                return this.contacts.filter((item) => {
+                    return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+                })
+            } else {
+                return this.contacts;
+            }
         }
     }
 }).mount('#app')
