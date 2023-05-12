@@ -1,14 +1,13 @@
-
 :root{
     font-size: 13px;
+    --primaryColor: #d6861e;
+    --secondaryColor: #4D7EA8;
+    --tertiaryColor: #9E90A2;
 }
 
-.picProfileFreme{
-    width: 5rem;
-}
-
-.profilePic{
-    width: 4rem;
+/* generalsRule */
+img {
+    width: 50px;
 }
 
 p,
@@ -18,34 +17,16 @@ h6{
 
 input{
     border: none;
+    outline: none;
+}
+/* utility */
+.fa-solid{
+    width: 30px;
+    font-size: 16px;
 }
 
-
-
-
-.messageContainer{
-    background-image: url(../img/mine.jpg);
-}
-
-.message{
-    padding: 0.3rem;
-    margin: 0.2rem;
-    border-radius: 5px;
-}
-
-.sent{
-    max-inline-size: 250px;
-    overflow-wrap: break-word;
-    float: right;
-    background-color: green;
-}
-
-.received{
-    text-align: start;
-    max-inline-size: 250px;
-    overflow-wrap: break-word;
-    float: left;
-    background-color: green;
+.fa-magnifying-glass{
+    font-size: 13px;
 }
 
 .max_space{
@@ -55,3 +36,61 @@ input{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* ==============
+        left
+==================*/
+
+/* UserInterface */
+.userInterface{
+    background-color: var(--primaryColor);
+    border: 1px solid black;
+}
+
+.userInterfaceContainer{
+    border-bottom: 2px solid black;
+}
+
+.notification{
+    background-color: #4D7EA8;
+}
+/* contact */
+
+.lastAccess{
+    color: lightgray;
+    font-size: 11px;
+}
+
+/* ==============
+        Right
+==================*/
+/* chatInterface */
+.chatInterface{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/* message */
+.messageContainer{
+    background-image: url(../img/mine.jpg);
+}
+
+.message{
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 5px;
+    background-color: green;
+    max-inline-size: 250px;
+    overflow-wrap: break-word;
+}
+
+.sent{
+    float: right;
+}
+
+.received{
+    text-align: start;
+    float: left;
+}
+
