@@ -15,15 +15,15 @@
 <body>
 
     <div id="app">
-        <div style="height: calc(100vh - 10rem);" class="container" >
-            <div class="row h-100">
+        <div style="height: 100vh;" class="container-fluid overflow-x-hidden overflow-y-hidden d-flex align-items-center justify-content-center" >
+            <div class="row w-75 h-75">
                 <!-- Left -->
                 <div class="col-4 bg-primary d-flex flex-column">
                     <!-- Dashboard profilo utente -->
                     <div class="userDashboard d-flex justify-content-between align-items-center p-1">
                         <div class="profilePic picProfileFreme d-flex align-items-center">
                             <img class="img-fluid rounded-circle" src="./assets/img/avatar_8.jpg" alt="">
-                            <p class="ps-1">UtenteX</p>
+                            <p class="ps-1">Utente</p>
                         </div>
                         <div>
                             <span class="btn px-2"><i class="fa-solid fa-rotate"></i></span>
@@ -35,18 +35,18 @@
                     <input v-model="searchQuery" class="w-100 rounded-1" type="text">
                     <!-- Chat whit users-->
                     <div style="height: 10rem;" class="userChatList p-1 overflow-y-auto flex-grow-1">
-                        <div v-for="(contact,i) in resultQuery()" @click="getChatId(i)" class="userChat d-flex align-items-center py-2">
+                        <div v-for="(contact,i) in resultQuery()" class="userChat d-flex align-items-center py-2">
                             
                             <div class="userImgProfile picProfileFreme pe-2">
                                 <img class="img-fluid rounded-circle" v-bind:src="'./assets' + contact.avatar" alt="">
                             </div>
-                            <div class="w-100">
+                            <div  @click="getChatId(contact,i)" class="w-100">
                                 <div class="d-flex justify-content-between align-items-center"> 
                                     <h6> {{contact.name}}</h6>
                                     <span>{{getLastMessageTime(i)}}</span>
                                 </div>
-                                <div class="d-flex">
-                                    <p><span>{{contact.messages[contact.messages.length - 1].message}}</span></p>
+                                <div class="w-100 d-flex max_space">
+                                    <p><span class="max_space">{{contact.messages[contact.messages.length - 1].message}}</span></p>
                                 </div>
                             </div>
 
@@ -59,16 +59,16 @@
                     <!-- Dashboard Chat actual -->
                     <div class="chatWhitUser d-flex align-items-center p-2">
                         <div class="userImgProfile picProfileFreme">
-                            <img class="img-fluid rounded-circle" :src="'./assets' + contacts[counter].avatar" alt="">
+                            <img class="img-fluid rounded-circle" :src="'./assets' + utente.avatar" alt="">
                         </div>
                         <div class="w-100 d-flex  align-items-center justify-content-between">
                             <div class="">
-                                <h6>{{contacts[counter].name}}</h6>
+                                <h6>{{utente.name}}</h6>
                                 <span>
                                     last access
                                 </span> 
                                 <span>
-                                    {{contacts[counter].visible}}
+                                    {{utente.visible}}
                                 </span>
                             </div>
                             <div>
@@ -80,10 +80,17 @@
                     </div>
                     <!-- container message -->
                     <div style="height: 10rem;" class="messageContainer overflow-x-hidden overflow-y-auto d-flex flex-column flex-grow-1">
-                        <div v-for="(messaggio, i) in contacts[counter].messages" class="text-end">
+                        <div v-for="(messaggio, i) in utente.messages" class="text-end">
                             <div class="message" :class="messaggio.status == 'sent' ? 'sent' : 'received'" >
                                 {{messaggio.message}}
-                                <span class="hoursMessage">{{getHours(messaggio.date)}}</span>
+                                <div>
+                                    <span  class="hoursMessage dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                                        {{getHours(messaggio.date)}}
+                                    </span>
+                                    <ul class="dropdown-menu">
+                                        <li><a  @click="delateMessage(i)" class="dropdown-item" href="#">dalete message</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,7 +102,7 @@
                             </div>
                             <!-- textArea -->
                             <div class="col-10 p-0">
-                                <input class="w-100 rounded-3 " type="text">
+                                <input class="w-100 rounded-3" v-on:keyup.enter="addMessage()" v-model="message"  type="text">
                             </div>
                             <div class="d-flex justify-content-center col-1 p-0 flex-shrink-1">
                                 <span><i class="fa-solid fa-microphone"></i></span>
@@ -109,6 +116,7 @@
 
         
 
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js' integrity='sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe' crossorigin='anonymous'></script>
     <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
     <script src="assets/js/main.js"></script>
 </body>

@@ -1,3 +1,4 @@
+
 :root{
     font-size: 13px;
 }
@@ -20,9 +21,7 @@ input{
 }
 
 
-.h-100{
-    min-height: 100%;
-}
+
 
 .messageContainer{
     background-image: url(../img/mine.jpg);
@@ -35,11 +34,24 @@ input{
 }
 
 .sent{
+    max-inline-size: 250px;
+    overflow-wrap: break-word;
     float: right;
     background-color: green;
 }
 
 .received{
+    text-align: start;
+    max-inline-size: 250px;
+    overflow-wrap: break-word;
     float: left;
     background-color: green;
+}
+
+.max_space{
+    display: block;
+    overflow: hidden;
+    max-inline-size: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

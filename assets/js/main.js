@@ -7,7 +7,7 @@ createApp({
                 {
                     name: 'Michele',
                     avatar: '/img/avatar_1.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -29,7 +29,7 @@ createApp({
                 {
                     name: 'Fabio',
                     avatar: '/img/avatar_2.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '20/03/2020 16:30:00',
@@ -51,7 +51,7 @@ createApp({
                 {
                     name: 'Samuele',
                     avatar: '/img/avatar_3.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '28/03/2020 10:10:40',
@@ -73,7 +73,7 @@ createApp({
                 {
                     name: 'Alessandro B.',
                     avatar: '/img/avatar_4.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -90,7 +90,7 @@ createApp({
                 {
                     name: 'Alessandro L.',
                     avatar: '/img/avatar_5.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -107,7 +107,7 @@ createApp({
                 {
                     name: 'Claudia',
                     avatar: '/img/avatar_5.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -129,7 +129,7 @@ createApp({
                 {
                     name: 'Federico',
                     avatar: '/img/avatar_7.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -146,7 +146,7 @@ createApp({
                 {
                     name: 'Davide',
                     avatar: '/img/avatar_8.jpg',
-                    visible: true,
+                    visible: false,
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -166,15 +166,32 @@ createApp({
                     ],
                 }
             ],
-            utenteAttivo: {
-                name: 'luca',
-                avatar: '/img/avatar_5.jpg',
-                visible: true,
-                messages: [],
-            },
             counter: 0,
             searchQuery: null,
-
+            message: "",
+            
+            utente: {
+                name: 'Michele',
+                    avatar: '/img/avatar_1.jpg',
+                    visible: false,
+                    messages: [
+                        {
+                            date: '10/01/2020 15:30:55',
+                            message: 'Hai portato a spasso il cane?',
+                            status: 'sent'
+                        },
+                        {
+                            date: '10/01/2020 15:50:00',
+                            message: 'Ricordati di stendere i panni',
+                            status: 'sent'
+                        },
+                        {
+                            date: '10/01/2020 16:15:22',
+                            message: 'Tutto fatto!',
+                            status: 'received'
+                        }
+                    ]
+            },
         }
     },
     methods: {
@@ -183,12 +200,12 @@ createApp({
             timeLastMex = hours.slice(11, 16)
             return timeLastMex
         },
-        getChatId(i) {
-            this.counter = i;
+        getChatId(contact) {
+            this.utente = contact;
         },
         getLastMessageTime(i) {
-            let hours = this.contacts[i].messages[this.contacts[i].messages.length - 1].date
-            hours = hours.slice(11, 16)
+            let hours = this.contacts[i].messages[this.contacts[i].messages.length - 1].date;
+            hours = hours.slice(11, 16);
             return hours
         },
         resultQuery() {
@@ -198,6 +215,28 @@ createApp({
                 })
             } else {
                 return this.contacts;
+            }
+        },
+        addMessage() {
+            let cloneMessage = {...this.utente.messages}
+            
+            cloneMessage.message = this.message
+            cloneMessage.date = this.createTime()
+            cloneMessage.status = "sent"
+            this.utente.messages.push(cloneMessage);
+
+            this.message = "";
+        },
+        createTime(){
+            const now = new Date();
+            const dayAndTime = now.toLocaleDateString("en-GB") + " " + now.toLocaleTimeString();
+            return dayAndTime
+        },
+        delateMessage(i){
+            if (this.utente.messages[i].status == "sent") {
+                this.utente.messages.splice(i,1)
+            } else {
+                alert("non puoi cancellare questo messaggio")
             }
         }
     }
