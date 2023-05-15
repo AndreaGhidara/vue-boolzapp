@@ -5,6 +5,28 @@ createApp({
         return {
             contacts: [
                 {
+                    name: 'Luca',
+                    avatar: '/img/avatar_8.jpg',
+                    visible: false,
+                    messages: [
+                        {
+                            date: '10/01/2021 12:30:55',
+                            message: 'Hanno fatto un aggiornamento a cs-go',
+                            status: 'sent'
+                        },
+                        {
+                            date: '10/01/2021 12:31:00',
+                            message: 'aggiorna che giochiamo',
+                            status: 'sent'
+                        },
+                        {
+                            date: '10/01/2021 16:00:22',
+                            message: 'Volo!',
+                            status: 'received'
+                        }
+                    ],
+                },
+                {
                     name: 'Michele',
                     avatar: '/img/avatar_1.jpg',
                     visible: false,
@@ -170,27 +192,33 @@ createApp({
             searchQuery: null,
             message: "",
             
+            risposta: {
+                date: '',
+                message: '',
+                status: ''
+            },
+            
             utente: {
                 name: 'Michele',
-                    avatar: '/img/avatar_1.jpg',
-                    visible: false,
-                    messages: [
-                        {
-                            date: '10/01/2020 15:30:55',
-                            message: 'Hai portato a spasso il cane?',
-                            status: 'sent'
-                        },
-                        {
-                            date: '10/01/2020 15:50:00',
-                            message: 'Ricordati di stendere i panni',
-                            status: 'sent'
-                        },
-                        {
-                            date: '10/01/2020 16:15:22',
-                            message: 'Tutto fatto!',
-                            status: 'received'
-                        }
-                    ]
+                avatar: '/img/avatar_1.jpg',
+                visible: true,
+                messages: [
+                    {
+                        date: '10/01/2020 15:30:55',
+                        message: 'Hai portato a spasso il cane?',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 15:50:00',
+                        message: 'Ricordati di stendere i panni',
+                        status: 'sent'
+                    },
+                    {
+                        date: '10/01/2020 16:15:22',
+                        message: 'Tutto fatto!',
+                        status: 'received'
+                    }
+                ]
             },
         }
     },
@@ -202,6 +230,10 @@ createApp({
         },
         getChatId(contact) {
             this.utente = contact;
+            if (this.utente = contact) {
+                
+            }
+            
         },
         getLastMessageTime(i) {
             let hours = this.contacts[i].messages[this.contacts[i].messages.length - 1].date;
@@ -217,13 +249,15 @@ createApp({
                 return this.contacts;
             }
         },
-        addMessage() {
+        sendMessage() {
             let cloneMessage = {...this.utente.messages}
             
             cloneMessage.message = this.message
             cloneMessage.date = this.createTime()
             cloneMessage.status = "sent"
             this.utente.messages.push(cloneMessage);
+            console.log(this.utente.messages);
+            this.risposta = setInterval(() => this.respondMessage(), 1000);
 
             this.message = "";
         },
@@ -238,6 +272,18 @@ createApp({
             } else {
                 alert("non puoi cancellare questo messaggio")
             }
+        },
+        respondMessage() {
+            let cloneMessage = {...this.utente.messages}
+
+            cloneMessage.message = "E' tutto relativo"
+            cloneMessage.date = this.createTime()
+            cloneMessage.status = "received"
+            console.log(cloneMessage);
+            this.utente.messages.push(cloneMessage);
+            
+
+            clearInterval(this.risposta);
         }
     }
 }).mount('#app')

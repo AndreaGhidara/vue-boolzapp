@@ -57,15 +57,19 @@
                     </div>
 
                     <!-- Contact -->
-                    <div class="w-100 text-black" v-for="(contact,i) in resultQuery()">
-                        <div @click="getChatId(contact,i)" class="d-flex w-100 p-2">
-                                <img class="rounded-circle" v-bind:src="'./assets' + contact.avatar" alt="">
-                            <div class="w-100 ps-2 ">
-                                <div class="d-flex justify-content-between">
-                                    <h5>{{contact.name}}</h5>
-                                    <p><small>{{getLastMessageTime(i)}}</small></p>
+                    <div style="height: 40rem;" class="overflow-y-auto">
+                        <div class="w-100" v-for="(contact,i) in resultQuery()" @click="getChatId(contact,i)">
+                            <div class="d-flex w-100 p-2 contact" :class="this.utente == contact ? 'activeContact' : ''">
+                                <div>
+                                    <img class="rounded-circle" v-bind:src="'./assets' + contact.avatar" alt="">
                                 </div>
-                                <p class="max_space">{{contact.messages[contact.messages.length - 1].message}}</p>
+                                <div class="w-100 ps-2 ">
+                                    <div class="d-flex justify-content-between">
+                                        <h5>{{contact.name}}</h5>
+                                        <p><small>{{getLastMessageTime(i)}}</small></p>
+                                    </div>
+                                    <p class="max_space">{{contact.messages[contact.messages.length - 1].message}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +120,7 @@
                             </div>
                             <!-- startTextArea -->
                             <div class="col-10 p-0">
-                                <input class="w-100 rounded-3" v-on:keyup.enter="addMessage()" v-model="message"  type="text">
+                                <input class="w-100 rounded-3" v-on:keyup.enter="sendMessage()" v-model="message"  type="text">
                             </div>
                             <!-- endTextArea -->
                             <div class="d-flex justify-content-center col-1 p-0">
